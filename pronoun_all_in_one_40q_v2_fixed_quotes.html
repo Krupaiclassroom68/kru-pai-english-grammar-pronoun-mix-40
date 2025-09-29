@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kru Pai Classroom – Pronoun All-in-One (40Q)</title>
+  <style>
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+      --accent:#7c3aed; --good:#16a34a; --bad:#ef4444; --ring:rgba(124,58,237,.18);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-rounded,"Kanit","Poppins",system-ui;background:var(--bg);color:var(--text)}
+    .wrap{max-width:960px;margin:18px auto;padding:16px}
+    .card{background:var(--card);border-radius:24px;box-shadow:0 10px 30px rgba(2,6,23,.06);padding:20px}
+    h1{margin:0;font-size:clamp(22px,3.4vw,36px)}
+    .muted{color:var(--muted)}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+    .btn:active{transform:translateY(1px)}
+    .primary{background:linear-gradient(180deg,#8b5cf6,#7c3aed);color:#fff;box-shadow:0 10px 18px rgba(124,58,237,.25)}
+    .ghost{background:#eef2ff;color:#312e81}
+    .good{color:var(--good);font-weight:800}
+    .bad{color:var(--bad);font-weight:800}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:800;font-size:12px}
+    .progress{height:12px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+    .progress>span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#3b82f6,#06b6d4);transition:width .35s ease}
+    .qtext{font-size:clamp(18px,3vw,24px);font-weight:900;margin:8px 0}
+    .olist{display:grid;gap:10px;margin-top:8px}
+    .opt{border:2px solid #e5e7eb;border-radius:14px;padding:12px 14px;cursor:pointer;font-weight:700}
+    .opt:hover{border-color:#c7d2fe}
+    .opt.correct{background:#ecfdf5;border-color:#10b981}
+    .opt.wrong{background:#fef2f2;border-color:#f87171}
+    .disabled{pointer-events:none;opacity:.7}
+    .hidden{display:none !important}
+    input[type="text"]{width:100%;font-size:18px;padding:12px 14px;border-radius:12px;border:2px solid #e5e7eb;outline:none}
+    input[type="text"]:focus{border-color:#8b5cf6;box-shadow:0 0 0 6px var(--ring)}
+    footer{margin-top:10px;color:var(--muted);font-size:12px;text-align:center}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border-bottom:1px solid #e5e7eb;padding:8px;text-align:left}
+    th{background:#f8fafc}
+    .expbox{margin-top:10px;padding:12px 14px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;font-size:14px;color:#334155}
+
+    /* Brand bar */
+    .kpc-brandbar{
+      position:fixed; top:10px; left:10px; z-index:9999;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 14px; border-radius:999px;
+      background:linear-gradient(90deg,#fb7185,#f59e0b);
+      color:#ffffff; font-weight:900; letter-spacing:.3px;
+      box-shadow:0 10px 20px rgba(0,0,0,.18);
+      user-select:none;
+    }
+    .kpc-dot{width:28px;height:28px;border-radius:999px;background:#fff;color:#111827;
+      display:grid;place-items:center;font-weight:900;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  </style>
+</head>
+<body>
+<div class="kpc-brandbar"><div class="kpc-dot">KP</div> Kru Pai Classroom</div>
+<div class="wrap">
+
+  <!-- START -->
+  <section id="start" class="card">
+    <h1>Pronoun All‑in‑One (40 ข้อ)</h1>
+    <div class="muted">รวมมิตรสรรพนาม: Subject/Object • Possessive (Adj/Pronoun) • Reflexive • Demonstrative • Relative • Indefinite • Interrogative</div>
+    <div class="card" style="margin-top:12px">
+      <b>วิธีเล่น</b>
+      <ol style="margin:8px 0 0 18px">
+        <li>ตอบแบบ A–D; เฉลยทันที พร้อม <b>คำอธิบายใต้ข้อ</b></li>
+        <li>สุ่มลำดับข้อและช้อยส์ทุกครั้ง</li>
+        <li>ครบ 40 ข้อ → สรุปคะแนน พร้อมประวัติ 3 รอบล่าสุดของชื่อผู้เล่นเดิม</li>
+      </ol>
+      <div class="muted" style="margin-top:6px">เกณฑ์ผ่าน: <b>32/40</b> (80%)</div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div style="flex:1 1 280px">
+        <label>ชื่อผู้เล่น</label>
+        <input id="playerName" type="text" placeholder="เช่น Beam / 1/2">
+      </div>
+      <div style="align-self:end">
+        <button id="btnStart" class="btn primary">เริ่มทำแบบฝึก ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="game" class="card hidden">
+    <div class="row" style="align-items:center;justify-content:space-between">
+      <div class="pill" id="topicPill">Topic</div>
+      <div class="row" style="align-items:center">
+        <div><b id="score">0</b> ✅</div>
+        <div>| <span id="done">0</span>/<span id="total">40</span></div>
+      </div>
+    </div>
+    <div class="progress" style="margin:8px 0 6px"><span id="bar"></span></div>
+    <div class="qtext" id="qtext">Question text</div>
+    <div id="olist" class="olist"></div>
+    <div id="exp" class="expbox hidden"></div>
+    <div class="row" style="margin-top:10px"><button id="btnNext" class="btn ghost hidden">ข้อถัดไป ▶</button></div>
+    <footer id="footerGame"></footer>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="summary" class="card hidden">
+    <h2>สรุปคะแนน</h2>
+    <div class="muted" id="playerLine">ผู้เล่น: -</div>
+    <div style="margin-top:8px">ได้คะแนน: <b id="finalScore">0</b>/<b id="finalTotal">40</b> — <span id="passStatus" class="pill">-</span></div>
+    <div class="card" style="margin-top:12px">
+      <b>สถิติ <span id="statName"></span> (ล่าสุดสูงสุด 3 รอบ)</b>
+      <table><thead><tr><th>รอบ</th><th>วันที่</th><th>เวลา</th><th>คะแนน</th><th>ผล</th></tr></thead><tbody id="historyBody"><tr><td colspan="5" class="muted">ยังไม่มีข้อมูล</td></tr></tbody></table>
+      <div id="attemptSummary" class="muted" style="margin-top:6px"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button id="btnPlayAgain" class="btn primary">เริ่มรอบใหม่ ▶</button>
+      <button id="btnBackStart" class="btn ghost">กลับหน้าแรก</button>
+    </div>
+  </section>
+
+  <footer>© Kru Pai Classroom</footer>
+</div>
+
+<script>
+const STORAGE_PREFIX = 'pronoun_mix_all_history_';
+const PASS_SCORE = 32;
+
+// Format: {topic, q, opts:[A,B,C,D], ans:index, alts:['other correct strings'], exp:'explanation (TH)'}
+const Q = [
+  // Subject/Object
+  {topic:'Subject', q:'Jenny and I are friends. ____ often study together.', opts:['Us','We','Our','Ours'], ans:1, exp:'ตำแหน่งประธานต้องใช้ subject pronoun → We (ไม่ใช้ Us/Our/Ours).'},
+  {topic:'Object', q:'Please give ____ a call when you arrive.', opts:['I','me','mine','myself'], ans:1, exp:'หลัง give ต้องเป็นกรรม → me.'},
+
+  // Reflexive
+  {topic:'Reflexive', q:'The baby can feed ____.', opts:['itself','themselves','herself','himself'], ans:0, exp:'the baby ใช้ it → reflexive ของ it คือ itself.'},
+  {topic:'Reflexive', q:'She cut ____ while cooking.', opts:['herself','himself','themselves','itself'], ans:0, exp:'ประธาน she → herself.'},
+  {topic:'Reflexive', q:'They enjoyed ____ at the party.', opts:['themselves','himself','herself','itself'], ans:0, exp:'enjoy oneself = สนุกกับตัวเอง → they → themselves.'},
+  {topic:'Reflexive', q:'Please help ____ to some snacks.', opts:['yourself','yourselves','herself','himself'], ans:0, exp:'help yourself to … = หยิบทานได้เลย (พูดกับ you เอกพจน์).'},
+  {topic:'Reflexive', q:'I taught ____ to swim.', opts:['me','myself','himself','ourselves'], ans:1, exp:'I → myself (สอนตัวเอง).'},
+
+  // Demonstrative
+  {topic:'Demonstrative', q:'I like ____ shoes over there.', opts:['those','that','this','these'], ans:0, exp:'รองเท้า (พหูพจน์) + ไกล → those.'},
+  {topic:'Demonstrative', q:'____ is my bag.', opts:['This','These','That','Those'], ans:0, exp:'ของใกล้ + เอกพจน์ → This.'},
+  {topic:'Demonstrative', q:'____ are my keys on the table.', opts:['These','This','Those','That'], ans:0, exp:'keys (พหูพจน์) + ของใกล้ → These.'},
+  {topic:'Demonstrative', q:'Is ____ your notebook on the floor?', opts:['that','this','these','those'], ans:0, exp:'ของไกล/จุดที่ห่างตัวผู้พูด → that.'},
+
+  // Possessive (adj vs pronoun)
+  {topic:'Possessive', q:'This is ____ book.', opts:['my','mine','your','yours'], ans:0, alts:['your'], exp:'มีคำนามตามหลัง → ใช้ possessive adjective: my/your + noun.'},
+  {topic:'Possessive', q:'This book is ____.', opts:['my','mine','your','yours'], ans:1, alts:['yours'], exp:'ไม่มีนามตามหลัง → ใช้ possessive pronoun: mine หรือ yours (ตามบริบท).'},
+  {topic:'Possessive', q:'Are these keys ____?', opts:['your','yours','you','yourself'], ans:1, exp:'ถาม “ของใคร” และไม่มีนามตาม → yours.'},
+  {topic:'Possessive', q:'That house is ____.', opts:['them','their','theirs','they'], ans:2, exp:'ไม่มีนามตาม → theirs.'},
+  {topic:'Possessive', q:'We love ____ teacher.', opts:['our','ours','we','us'], ans:0, exp:'มีนามตาม (teacher) → our teacher.'},
+  {topic:'Possessive', q:'The black cat licked ____ paw.', opts:['its','it\\'s','their','theirs'], ans:0, exp:'รูปเจ้าของของ it = its (ไม่ใช่ it\\'s = it is).'},
+  {topic:'Possessive', q:'This room is ____.', opts:['our','ours','we','us'], ans:1, exp:'ไม่มีนามตาม → ours.'},
+  {topic:'Possessive', q:'____ parents are doctors.', opts:['My','Mine','Me','I'], ans:0, exp:'มีนามตาม (parents) → My parents.'},
+  {topic:'Possessive', q:'That is not my phone. It\\'s ____.', opts:['her','hers','she','herself'], ans:1, exp:'It\\'s = it is; ถัดมาไม่มีนามตาม → hers.'},
+  {topic:'Possessive', q:'He forgot ____ keys.', opts:['his','him','himself','he'], ans:0, exp:'มีนามตาม (keys) → his keys.'},
+  {topic:'Possessive', q:'Is this pen ____?', opts:['your','yours','mine','yourself'], ans:1, alts:['mine'], exp:'ถามความเป็นเจ้าของ → ใช้ pronoun: yours หรือ mine ก็ได้ (ตามผู้ตอบ).'},
+  {topic:'Possessive', q:'Those pencils are ____.', opts:['ours','us','our','they'], ans:0, exp:'หลัง be และไม่มีนามตาม → ours.'},
+
+  // Case / Agreement / Indefinite
+  {topic:'Case', q:'My brother is taller than ____.', opts:['me','I','mine','myself'], ans:0, exp:'ภาษาพูดใช้รูปกรรมหลัง than → me (ทางการ: than I am).'},
+  {topic:'Agreement', q:'Each student must bring ____ own notebook.', opts:['their','his or her','his','her'], ans:1, alts:['their'], exp:'เอกพจน์ทางไวยากรณ์ → his or her (ยอมรับ their ตามการใช้สมัยใหม่).'},
+  {topic:'Agreement', q:'Everyone ____ ready.', opts:['is','are','was','were'], ans:0, exp:'indefinite เอกพจน์ → ใช้ is.'},
+  {topic:'Agreement', q:'Neither of the answers ____ correct.', opts:['is','are','was','were'], ans:0, exp:'neither + of + พหูพจน์ → กริยาเอกพจน์ → is.'},
+  {topic:'Agreement', q:'Both of them ____ here.', opts:['is','are','was','were'], ans:1, exp:'both = พหูพจน์ → are.'},
+
+  // Interrogative
+  {topic:'Interrogative', q:'____ is calling, please?', opts:['Who','Whom','Which','What'], ans:0, exp:'ถาม “ใครกำลังโทร” → Who (ประธาน).'},
+  {topic:'Interrogative', q:'____ bag is this?', opts:['Whose','Who\\'s','Who','Whom'], ans:0, exp:'ถามความเป็นเจ้าของ → Whose (ไม่ใช่ Who\\'s = who is).'},
+
+  // Relative
+  {topic:'Relative', q:'The boy ____ won the prize is my cousin.', opts:['who','whom','which','that'], ans:0, exp:'ผู้ชนะเป็นประธานของอนุประโยค → who.'},
+  {topic:'Relative', q:'The book ____ I bought yesterday is interesting.', opts:['that','which','who','whom'], ans:0, alts:['which'], exp:'ของสิ่งของ → that/which ใช้ได้ทั้งคู่.'},
+  {topic:'Relative', q:'The woman to ____ you spoke is my teacher.', opts:['whom','who','which','that'], ans:0, exp:'ตามหลังบุพบท (to) → whom.'},
+  {topic:'Relative', q:'The car ____ color is red belongs to my dad.', opts:['whose','which','that','who'], ans:0, exp:'แสดงความเป็นเจ้าของในอนุประโยค → whose.'},
+  {topic:'Relative', q:'The movie ____ we watched last night was funny.', opts:['that','which','who','whom'], ans:0, alts:['which'], exp:'ของสิ่งของ → that/which ใช้ได้ทั้งคู่.'},
+  {topic:'Relative', q:'The city in ____ I was born is small.', opts:['which','that','where','whom'], ans:0, alts:['where'], exp:'โครงสร้าง “in which” ทางการ; “where” ก็ใช้แทนได้.'},
+
+  // Case / Misc
+  {topic:'Case', q:'Between you and ____, this plan won\\'t work.', opts:['I','me','my','mine'], ans:1, exp:'หลังบุพบท (between) ใช้รูปกรรม → me.'},
+  {topic:'Case', q:'It was ____ who broke the window.', opts:['he','him','they','them'], ans:0, exp:'ส่วนเติมเต็มของ be (ภาษามาตรฐาน) ใช้รูปประธาน → he.'},
+  {topic:'Indefinite', q:'If anyone calls, tell ____ I\\'m busy.', opts:['them','him or her','him','her'], ans:0, alts:['him or her'], exp:'เอกพจน์แบบไม่ระบุเพศ → singular they “them” (หรือ “him or her”).'},
+  {topic:'Demonstrative', q:'____ of these two options is fine.', opts:['Either','Neither','Both','Each'], ans:0, exp:'“หนึ่งในสอง” → either; ถ้า “ทั้งสอง” ต้องใช้ both + กริยาพหูพจน์.'},
+];
+
+const $ = s => document.querySelector(s);
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function clone(x){ return JSON.parse(JSON.stringify(x)); }
+function fmtTime(d){ return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+function fmtDate(d){ return d.toLocaleDateString(); }
+
+let player = '';
+let seq = [];
+let idx = 0;
+let score = 0;
+let answered = [];
+
+function startGame(){
+  player = ($('#playerName').value || 'นักเรียน').trim();
+  $('#footerGame').textContent = `กำลังเล่น: ${player}`;
+  const base = clone(Q);
+  const order = shuffle([...Array(base.length).keys()]);
+  seq = order.map(i => {
+    const q = base[i];
+    const opts = q.opts.map((t,i)=>({t,i}));
+    shuffle(opts);
+    const newOpts = opts.map(o=>o.t);
+    const newAns = opts.findIndex(o=>o.i===q.ans);
+    const alts = q.alts ? [...q.alts] : null;
+    return {topic:q.topic, q:q.q, opts:newOpts, ans:newAns, exp:q.exp, alts};
+  });
+
+  idx=0; score=0; answered=new Array(seq.length).fill(false);
+  $('#start').classList.add('hidden');
+  $('#summary').classList.add('hidden');
+  $('#game').classList.remove('hidden');
+  renderQ();
+}
+
+function renderQ(){
+  const q = seq[idx];
+  $('#topicPill').textContent = q.topic;
+  $('#qtext').textContent = `${idx+1}. ${q.q}`;
+  $('#done').textContent = answered.filter(x=>x).length;
+  $('#total').textContent = seq.length;
+  $('#score').textContent = score;
+  $('#bar').style.width = (100*answered.filter(x=>x).length/seq.length).toFixed(1) + '%';
+
+  const olist = $('#olist');
+  olist.innerHTML = '';
+  ['A','B','C','D'].forEach((letter,k)=>{
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.dataset.index = k;
+    div.innerHTML = `<b>${letter}.</b> ${q.opts[k]}`;
+    div.addEventListener('click', onChoose);
+    olist.appendChild(div);
+  });
+  const exp = $('#exp'); exp.classList.add('hidden'); exp.innerHTML='';
+  $('#btnNext').classList.add('hidden');
+}
+
+function onChoose(e){
+  const choice = Number(e.currentTarget.dataset.index);
+  const q = seq[idx];
+  document.querySelectorAll('.opt').forEach(el=>el.classList.add('disabled'));
+
+  const chosenText = q.opts[choice];
+  const ok = (choice===q.ans) || (q.alts && q.alts.includes(chosenText));
+
+  if(ok){ e.currentTarget.classList.add('correct'); score++; }
+  else{
+    e.currentTarget.classList.add('wrong');
+    const cor = document.querySelector(`.opt[data-index="${q.ans}"]`);
+    if(cor) cor.classList.add('correct');
+  }
+
+  if(!answered[idx]){
+    answered[idx]=true;
+    $('#done').textContent = answered.filter(x=>x).length;
+    $('#score').textContent = score;
+    $('#bar').style.width = (100*answered.filter(x=>x).length/seq.length).toFixed(1)+'%';
+  }
+
+  const exp = $('#exp');
+  const altNote = (q.alts && q.alts.includes(chosenText)) ? " (รับคำตอบนี้เป็นอีกทางเลือกที่ถูกต้อง)" : "";
+  exp.innerHTML = `<b>อธิบาย:</b> ${q.exp}${altNote}`;
+  exp.classList.remove('hidden');
+
+  const allDone = answered.every(x=>x);
+  if(allDone){ setTimeout(()=>finishGame(), 400); }
+  else{ $('#btnNext').classList.remove('hidden'); }
+}
+
+function nextQ(){
+  for(let k=1;k<=seq.length;k++){
+    const ni = (idx + k) % seq.length;
+    if(!answered[ni]){ idx = ni; break; }
+  }
+  renderQ();
+}
+
+function finishGame(){
+  $('#game').classList.add('hidden');
+  $('#summary').classList.remove('hidden');
+
+  $('#playerLine').textContent = `ผู้เล่น: ${player}`;
+  $('#finalScore').textContent = score;
+  $('#finalTotal').textContent = seq.length;
+  const pass = (score >= PASS_SCORE);
+  const pill = document.getElementById('passStatus');
+  pill.textContent = pass ? 'ผ่าน' : 'ยังไม่ผ่าน';
+  pill.style.background = pass ? '#ecfdf5' : '#fef2f2';
+  pill.style.color = pass ? '#065f46' : '#7f1d1d';
+
+  // save history
+  const key = STORAGE_PREFIX + player;
+  const now = new Date();
+  const rec = {score, total:seq.length, ts: now.toISOString(), pass};
+  const hist = JSON.parse(localStorage.getItem(key) || '[]');
+  hist.push(rec);
+  localStorage.setItem(key, JSON.stringify(hist));
+
+  // render last 3
+  document.getElementById('statName').textContent = player;
+  const tbody = document.getElementById('historyBody'); tbody.innerHTML='';
+  const last3 = hist.slice(-3);
+  last3.forEach((r,i)=>{
+    const d = new Date(r.ts);
+    const roundNo = hist.length - last3.length + (i+1);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${roundNo}</td><td>${fmtDate(d)}</td><td>${fmtTime(d)}</td><td>${r.score}/${r.total}</td><td>${r.pass?'ผ่าน':'ไม่ผ่าน'}</td>`;
+    tbody.appendChild(tr);
+  });
+  if(last3.length===0){
+    const tr = document.createElement('tr'); tr.innerHTML = `<td colspan="5" class="muted">ยังไม่มีข้อมูล</td>`; tbody.appendChild(tr);
+  }
+
+  const firstPassIndex = hist.findIndex(r=>r.pass);
+  document.getElementById('attemptSummary').innerHTML = (firstPassIndex>=0)
+    ? `ผ่านครั้งแรกในรอบที่ <b>${firstPassIndex+1}</b> (จากทั้งหมด ${hist.length} รอบของชื่อนี้)`
+    : `ยังไม่ผ่าน (เกณฑ์ผ่าน ${PASS_SCORE}/${seq.length}) ใน ${hist.length} รอบของชื่อนี้`;
+}
+
+document.getElementById('btnStart').addEventListener('click', startGame);
+document.getElementById('btnNext').addEventListener('click', nextQ);
+document.getElementById('btnPlayAgain').addEventListener('click', startGame);
+document.getElementById('btnBackStart').addEventListener('click', ()=>{
+  document.getElementById('summary').classList.add('hidden');
+  document.getElementById('start').classList.remove('hidden');
+});
+</script>
+</body>
+</html>
